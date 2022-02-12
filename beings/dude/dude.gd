@@ -93,12 +93,9 @@ func die(cause = null):
 				set_lava(true)
 			"vertical_squash":
 				set_vertical_squash(true)
-					
-
 		if alive:
 			emit_signal("dead")
 			set_alive(false)
-			velocity = Vector2(100.0 * -facing, -300.0)
 
 const NOT_FOUND = -1
 
@@ -109,6 +106,7 @@ func set_lava(val):
 			sprite.material = ShaderMaterial.new()
 			sprite.material.shader = preload("res://assets/shader/red_dither.gdshader")
 			deaths.append("lava")
+			velocity = Vector2(100.0 * -facing, -300.0)
 	else:
 		if i != NOT_FOUND:
 			sprite.material = null

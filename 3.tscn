@@ -245,16 +245,11 @@ tile_data = PoolIntArray( 1769500, 1, 0, 1769501, 1, 0, 1769502, 1, 0, 1769503, 
 
 [node name="water" parent="." instance=ExtResource( 10 )]
 
-[node name="water" parent="water" index="0"]
-scale = Vector2( 1, 1 )
-tile_data = PoolIntArray( 852007, 1, 0, 852008, 1, 0, 852009, 1, 0, 852010, 1, 0, 852011, 1, 0, 852012, 1, 0, 852013, 1, 0, 852014, 1, 0, 852015, 1, 0 )
-
 [node name="players" type="Node2D" parent="."]
 script = ExtResource( 5 )
 
 [node name="player" parent="players" instance=ExtResource( 2 )]
-position = Vector2( 378, 214 )
-facing = -1.0
+position = Vector2( 370, 202 )
 texture_long = null
 
 [node name="camera" type="Camera2D" parent="players/player"]
@@ -264,11 +259,11 @@ smoothing_speed = 15.0
 script = ExtResource( 8 )
 
 [node name="player2" parent="players" instance=ExtResource( 2 )]
-position = Vector2( 290, 214 )
+position = Vector2( 290, 204 )
 texture_long = null
 
 [node name="medic" parent="players" instance=ExtResource( 9 )]
-position = Vector2( 338, 214 )
+position = Vector2( 328, 172 )
 collision_mask = 0
 
 [node name="goal" type="Area2D" parent="."]
@@ -288,4 +283,3 @@ script = ExtResource( 7 )
 [connection signal="body_entered" from="goal" to="goal" method="_on_body_entered"]
 
 [editable path="lava"]
-[editable path="water"]

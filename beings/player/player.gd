@@ -8,7 +8,7 @@ onready var input_enabled := has_node("camera") setget set_input_enabled
 func _ready():
 	._ready()
 	emit_signal("input_enabled_changed", input_enabled)
-	
+
 
 func _input(event):
 	if input_enabled:
@@ -23,15 +23,21 @@ func _input(event):
 			
 func switch_focus():
 	var players = get_tree().get_nodes_in_group("player")
-	var i = (players.find(self) + 1) % players.size()
-	for player in players:
-		player.input_enabled = false
-	var player_with_focus = players[i]
-	if has_node("camera"):
-		var cam = $camera
-		player_with_focus.input_enabled = true
-		remove_child(cam)
-		player_with_focus.add_child(cam)
+	var start_i = players.find(self)
+	var i = 1
+	
+	var end_i = players.size()
+	while !players[(start_i + i) % players.size()].alive and i != end_i:
+		i += 1
+	if i != end_i:
+		for player in players:
+			player.input_enabled = false
+		var player_with_focus = players[(start_i + i) % players.size()]
+		if has_node("camera"):
+			var cam = $camera
+			player_with_focus.input_enabled = true
+			remove_child(cam)
+			player_with_focus.add_child(cam)
 
 func focus_all():
 	var players = get_tree().get_nodes_in_group("player")
@@ -51,3 +57,6 @@ func get_input_dir():
 func set_input_enabled(val):
 	input_enabled = val
 	emit_signal("input_enabled_changed", val)
+
+
+
