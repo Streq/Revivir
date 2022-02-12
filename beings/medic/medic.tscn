@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://beings/dude/dude.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/texture/medic_cap.png" type="Texture" id=2]
+[ext_resource path="res://beings/medic/medic.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 160, 140 )
+
+[node name="medic" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="cap" type="Sprite" parent="pivot/Sprite" index="0"]
+texture = ExtResource( 2 )
+
+[node name="sight" type="Area2D" parent="." index="7"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sight" index="0"]
+shape = SubResource( 1 )
