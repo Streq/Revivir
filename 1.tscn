@@ -252,9 +252,8 @@ script = ExtResource( 5 )
 
 [node name="player" parent="players" instance=ExtResource( 2 )]
 position = Vector2( 370, 202 )
-has_focus = true
 
-[node name="Camera2D" type="Camera2D" parent="players/player"]
+[node name="camera" type="Camera2D" parent="players/player"]
 current = true
 smoothing_enabled = true
 smoothing_speed = 15.0
@@ -263,6 +262,7 @@ script = ExtResource( 8 )
 [node name="player2" parent="players" instance=ExtResource( 2 )]
 position = Vector2( 500, 202 )
 alive = false
+input_enabled = false
 
 [node name="goal" type="Area2D" parent="."]
 collision_layer = 0

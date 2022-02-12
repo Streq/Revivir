@@ -251,17 +251,16 @@ format = 1
 tile_data = PoolIntArray( 917531, 1, 0, 917532, 1, 0, 917533, 1, 0, 917534, 1, 0, 917535, 1, 0, 917536, 1, 0, 917537, 1, 0, 917538, 1, 0, 917539, 1, 0, 917540, 1, 0, 917541, 1, 0, 917542, 1, 0, 917543, 1, 0, 917544, 1, 0, 917545, 1, 0, 917546, 1, 0 )
 
 [node name="medic" parent="." instance=ExtResource( 9 )]
-position = Vector2( 328, 190 )
+position = Vector2( 750, 170 )
 
 [node name="players" type="Node2D" parent="."]
 script = ExtResource( 5 )
 
 [node name="player" parent="players" instance=ExtResource( 2 )]
 position = Vector2( 370, 202 )
-has_focus = true
 texture_long = null
 
-[node name="Camera2D" type="Camera2D" parent="players/player"]
+[node name="Camera2D2" type="Camera2D" parent="players/player"]
 current = true
 smoothing_enabled = true
 smoothing_speed = 15.0

@@ -14,8 +14,8 @@ export var gravity := 500.0
 export var lerp_speed := 1.0
 export var lerp_floor_idle := 8.0
 export var lerp_air_idle := 1.0
-export var has_focus := false
 export var texture_long : Texture
+export var texture_normal : Texture
 
 onready var animation := $AnimationPlayer
 onready var sprite := $pivot/Sprite
@@ -88,25 +88,53 @@ func get_input_dir():
 
 func die(cause = null):
 	if deaths.find(cause) == -1:
-		if cause:
-			deaths.append(cause)
-			match(cause):
-				"lava":
-					sprite.material = ShaderMaterial.new()
-					sprite.material.shader = preload("res://assets/shader/red_dither.gdshader")
-				"vertical_squash":
-					yield(get_tree(),"idle_frame")
-					sprite.texture = texture_long
-					standing_shape.scale.x = 0.5
-					standing_shape.scale.y = 2
-					knocked_shape.scale.x = 2
-					knocked_shape.position.y += 6
+		match(cause):
+			"lava":
+				set_lava(true)
+			"vertical_squash":
+				set_vertical_squash(true)
 					
 
 		if alive:
 			emit_signal("dead", self)
 			set_alive(false)
 			velocity = Vector2(100.0 * -facing, -300.0)
+
+const NOT_FOUND = -1
+
+func set_lava(val):
+	var i = deaths.find("lava")
+	if val:
+		if i == NOT_FOUND:
+			sprite.material = ShaderMaterial.new()
+			sprite.material.shader = preload("res://assets/shader/red_dither.gdshader")
+			deaths.append("lava")
+	else:
+		if i != NOT_FOUND:
+			sprite.material = null
+			deaths.remove(i)
+
+func set_vertical_squash(val):
+	var i = deaths.find("vertical_squash")
+	if val:
+		if i == NOT_FOUND:
+			sprite.texture = texture_long
+			standing_shape.scale.x = 0.5
+			standing_shape.scale.y = 2
+			knocked_shape.scale.x = 2
+			knocked_shape.position.y = 10.5
+			deaths.append("vertical_squash")
+	else:
+		if i != NOT_FOUND:
+			sprite.texture = texture_normal
+			standing_shape.scale.x = 1
+			standing_shape.scale.y = 1
+			knocked_shape.scale.x = 1
+			knocked_shape.position.y = 4.5
+			deaths.remove(i)
+
+func has_death(val):
+	return deaths.find(val) != -1
 
 func revive():
 	set_alive(true)
