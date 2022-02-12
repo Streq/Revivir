@@ -1,7 +1,7 @@
 extends KinematicBody2D
 class_name Dude
-signal dead(who)
-signal revived(who)
+signal dead()
+signal revived()
 
 var velocity := Vector2.ZERO
 var jump := false
@@ -96,7 +96,7 @@ func die(cause = null):
 					
 
 		if alive:
-			emit_signal("dead", self)
+			emit_signal("dead")
 			set_alive(false)
 			velocity = Vector2(100.0 * -facing, -300.0)
 
@@ -139,7 +139,7 @@ func has_death(val):
 func revive():
 	set_alive(true)
 	particles_revive.emitting = true
-	emit_signal("revived", self)
+	emit_signal("revived")
 	
 
 func set_alive(val):

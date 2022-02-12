@@ -23,5 +23,6 @@ func next_level():
 		
 func _input(event):
 	if event.is_action_pressed("restart"):
-		index -= 1
+		if index != -1:
+			index -= 1
 		next_level()

@@ -274,7 +274,7 @@ script = ExtResource( 5 )
 [node name="player" parent="reviver/players" instance=ExtResource( 2 )]
 position = Vector2( 418, 168 )
 
-[node name="Camera2D" type="Camera2D" parent="reviver/players/player"]
+[node name="camera" type="Camera2D" parent="reviver/players/player"]
 current = true
 smoothing_enabled = true
 smoothing_speed = 15.0

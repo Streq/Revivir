@@ -1,7 +1,14 @@
 extends Dude
 class_name Player
 
-export var input_enabled := true
+signal input_enabled_changed(val)
+
+onready var input_enabled := has_node("camera") setget set_input_enabled
+
+func _ready():
+	._ready()
+	emit_signal("input_enabled_changed", input_enabled)
+	
 
 func _input(event):
 	if input_enabled:
@@ -40,3 +47,7 @@ func get_input_dir():
 		)
 	else: 
 		return Vector2.ZERO
+
+func set_input_enabled(val):
+	input_enabled = val
+	emit_signal("input_enabled_changed", val)
