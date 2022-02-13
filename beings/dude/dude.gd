@@ -22,11 +22,13 @@ onready var sprite := $pivot/Sprite
 onready var pivot := $pivot
 onready var interact_area = $interact_area
 onready var interactuable_area = $interactuable_area
+onready var overlap_check = $overlap_check
 onready var standing_shape = $standing_shape
 onready var knocked_shape = $knocked_shape
 onready var label_revivir = $label_revivir
 onready var particles_revive = $particles_revive
-
+onready var overlap_check_col_shape = overlap_check.get_node("CollisionShape2D")
+var current_shape
 
 
 onready var deaths := []
@@ -37,6 +39,8 @@ func _ready():
 	
 func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector2.UP)
+	if has_node("camera"):
+		fix_overlaps()
 	velocity.y += delta*gravity
 	var show_revivir_label = false
 	if alive:
@@ -84,6 +88,32 @@ func _physics_process(delta):
 	label_revivir.visible = show_revivir_label
 	jump = false
 	interact = false
+	
+	
+
+func fix_overlaps():
+	
+	var correct = Vector2.ZERO
+		
+#	for i in get_slide_count():
+#		var col = get_slide_collision(i)
+#		if is_instance_valid(col) and overlap_check.get_overlapping_bodies().find(col.collider) != NOT_FOUND:
+#			var dist = col.normal
+#			correct += dist
+#			print(global_position)
+#	if correct != Vector2.ZERO:
+#		yield(get_tree(),"idle_frame")
+#		print(correct)
+#		move_and_slide(correct)
+#		velocity -= correct
+#		position -= correct
+
+#	for body in overlap_check.get_overlapping_bodies():
+#		if body == self:
+#			continue
+#		var dist = (body.global_position-global_position).normalized()
+#		move_and_slide(-dist)
+		
 
 func get_input_dir():
 	return Vector2(0,0)
@@ -95,6 +125,7 @@ func die(cause = null):
 				set_lava(true)
 			"vertical_squash":
 				set_vertical_squash(true)
+			
 		if alive:
 			emit_signal("dead")
 			set_alive(false)
@@ -121,7 +152,7 @@ func set_vertical_squash(val):
 			sprite.texture = texture_long
 			standing_shape.scale.x = 0.5
 			standing_shape.scale.y = 2
-			knocked_shape.scale.x = 2
+			knocked_shape.scale.x = 1
 			knocked_shape.position.y = 10.5
 			deaths.append("vertical_squash")
 	else:
@@ -153,4 +184,14 @@ func update_alive(val):
 	interactuable_area.monitorable = !alive
 	standing_shape.disabled = !alive
 	knocked_shape.disabled = alive
-
+	
+	if alive:
+		current_shape = standing_shape
+	else:
+		current_shape = knocked_shape
+	overlap_check_col_shape.shape = current_shape.shape
+	overlap_check_col_shape.scale = current_shape.scale
+	overlap_check_col_shape.position = current_shape.position
+	
+	
+	

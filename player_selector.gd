@@ -15,7 +15,7 @@ func _ready():
 
 
 
-func _on_player_dead(who):
+func _on_player_dead():
 	alive -= 1
 	if !alive:
 		emit_signal("all_players_dead")
