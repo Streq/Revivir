@@ -291,15 +291,19 @@ __meta__ = {
 
 [node name="S" type="Label" parent="."]
 visible = false
-margin_left = 420.0
-margin_top = 230.0
-margin_right = 546.0
-margin_bottom = 261.0
+margin_left = 358.0
+margin_top = 232.0
+margin_right = 603.0
+margin_bottom = 314.0
 grow_horizontal = 2
 grow_vertical = 2
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "S - cambiar entre 
-chaboncitos vivos"
+chaboncitos vivos
+D - lo mismo pero 
+para el otro lado
+"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

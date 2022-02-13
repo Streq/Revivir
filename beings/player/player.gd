@@ -17,24 +17,26 @@ func _input(event):
 		if event.is_action_pressed("interact"):
 			interact = true
 		if event.is_action_pressed("switch"):
-			call_deferred("switch_focus")
+			call_deferred("switch_focus", 1)
+		if event.is_action_pressed("switch_other_way"):
+			call_deferred("switch_focus", -1)
 		if event.is_action_pressed("focus_all"):
 			call_deferred("focus_all")
 			
-func switch_focus():
+func switch_focus(dir):
 	if has_node("camera"):
 		var players = get_tree().get_nodes_in_group("player")
 		var start_i = players.find(self)
 		var i = 1
 		
 		var end_i = players.size()
-		while !players[(start_i + i) % players.size()].alive and i != end_i:
+		while !players[(start_i + i*dir + players.size()) % players.size()].alive and i != end_i:
 			i += 1
 		if i != end_i:
 			for player in players:
 				player.input_enabled = false
 			yield(get_tree(), "idle_frame")
-			var player_with_focus = players[(start_i + i) % players.size()]
+			var player_with_focus = players[(start_i + i*dir + players.size()) % players.size()]
 			var cam = $camera
 			player_with_focus.input_enabled = true
 			remove_child(cam)
@@ -43,7 +45,8 @@ func switch_focus():
 func focus_all():
 	var players = get_tree().get_nodes_in_group("player")
 	for player in players:
-		player.input_enabled = true
+		if player.alive:
+			player.input_enabled = true
 	
 
 func get_input_dir():

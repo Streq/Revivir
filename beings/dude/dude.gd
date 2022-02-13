@@ -27,7 +27,9 @@ onready var standing_shape = $standing_shape
 onready var knocked_shape = $knocked_shape
 onready var label_revivir = $label_revivir
 onready var particles_revive = $particles_revive
-onready var overlap_check_col_shape = overlap_check.get_node("CollisionShape2D")
+onready var overlap_check_col_shape = $overlap_check/CollisionShape2D
+onready var death_animation := $death_animation
+
 var current_shape
 
 
@@ -76,15 +78,16 @@ func _physics_process(delta):
 		
 		pass
 	else:
-		if is_on_floor():
-			animation.play("knocked")
-			velocity.x = 0.0
-		else:
-			animation.play("hit_on_air")
-		for area in interactuable_area.get_overlapping_areas():
-			if area.owner.is_in_group("player"):
-				show_revivir_label = true
-				break
+		if !death_animation.is_playing():
+			if is_on_floor():
+				animation.play("knocked")
+				velocity.x = 0.0
+			else:
+				animation.play("hit_on_air")
+			for area in interactuable_area.get_overlapping_areas():
+				if area.owner.is_in_group("player"):
+					show_revivir_label = true
+					break
 	label_revivir.visible = show_revivir_label
 	jump = false
 	interact = false
@@ -149,12 +152,17 @@ func set_vertical_squash(val):
 	var i = deaths.find("vertical_squash")
 	if val:
 		if i == NOT_FOUND:
-			sprite.texture = texture_long
+			deaths.append("vertical_squash")
+			death_animation.play("vertical_squash")
 			standing_shape.scale.x = 0.5
-			standing_shape.scale.y = 2
 			knocked_shape.scale.x = 1
 			knocked_shape.position.y = 10.5
-			deaths.append("vertical_squash")
+			standing_shape.scale.y = 2
+			yield(death_animation,"animation_finished")
+			pivot.scale.x = 1
+			pivot.scale.y = 1
+			sprite.texture = texture_long
+			
 	else:
 		if i != NOT_FOUND:
 			sprite.texture = texture_normal
@@ -168,6 +176,8 @@ func has_death(val):
 	return deaths.find(val) != -1
 
 func revive():
+	velocity.y += -100
+	yield(get_tree().create_timer(0.2),"timeout")
 	set_alive(true)
 	particles_revive.emitting = true
 	emit_signal("revived")
