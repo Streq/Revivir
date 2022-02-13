@@ -285,6 +285,17 @@ tile_data = PoolIntArray( 852030, 2, 0 )
 [node name="reviver" type="Node2D" parent="."]
 script = ExtResource( 7 )
 
+[node name="Label" type="Label" parent="."]
+margin_left = 646.0
+margin_top = 232.0
+margin_right = 758.0
+margin_bottom = 246.0
+custom_colors/font_color = Color( 0.478431, 0.576471, 1, 1 )
+text = "aguita fresquita"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="body_entered" from="goal" to="goal" method="_on_body_entered"]
 
 [editable path="lava"]

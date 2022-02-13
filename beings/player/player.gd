@@ -22,18 +22,19 @@ func _input(event):
 			call_deferred("focus_all")
 			
 func switch_focus():
-	var players = get_tree().get_nodes_in_group("player")
-	var start_i = players.find(self)
-	var i = 1
-	
-	var end_i = players.size()
-	while !players[(start_i + i) % players.size()].alive and i != end_i:
-		i += 1
-	if i != end_i:
-		for player in players:
-			player.input_enabled = false
-		var player_with_focus = players[(start_i + i) % players.size()]
-		if has_node("camera"):
+	if has_node("camera"):
+		var players = get_tree().get_nodes_in_group("player")
+		var start_i = players.find(self)
+		var i = 1
+		
+		var end_i = players.size()
+		while !players[(start_i + i) % players.size()].alive and i != end_i:
+			i += 1
+		if i != end_i:
+			for player in players:
+				player.input_enabled = false
+			yield(get_tree(), "idle_frame")
+			var player_with_focus = players[(start_i + i) % players.size()]
 			var cam = $camera
 			player_with_focus.input_enabled = true
 			remove_child(cam)

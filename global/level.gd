@@ -25,4 +25,6 @@ func _input(event):
 	if event.is_action_pressed("restart"):
 		if index != -1:
 			index -= 1
-		next_level()
+			next_level()
+		else:
+			get_tree().reload_current_scene()

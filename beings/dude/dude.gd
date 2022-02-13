@@ -27,10 +27,12 @@ onready var knocked_shape = $knocked_shape
 onready var label_revivir = $label_revivir
 onready var particles_revive = $particles_revive
 
+
+
 onready var deaths := []
 
 func _ready():
-	update_areas()
+	update_alive(alive)
 	pass
 	
 func _physics_process(delta):
@@ -141,10 +143,10 @@ func revive():
 	
 
 func set_alive(val):
-	alive = val
-	call_deferred("update_areas")
+	call_deferred("update_alive", val)
 
-func update_areas():
+func update_alive(val):
+	alive = val
 	interact_area.monitoring = alive
 	interact_area.monitorable = alive
 	interactuable_area.monitoring = !alive

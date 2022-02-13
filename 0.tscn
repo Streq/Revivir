@@ -285,9 +285,20 @@ position = Vector2( 328, 172 )
 collision_mask = 0
 
 [node name="medic2" parent="reviver" instance=ExtResource( 8 )]
-position = Vector2( 628, 166 )
+position = Vector2( 772, 166 )
 collision_mask = 0
 facing = -1.0
+
+[node name="Label" type="Label" parent="."]
+margin_left = 450.0
+margin_top = 200.0
+margin_right = 555.0
+margin_bottom = 214.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "ojo con lo rojo"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="body_entered" from="lava" to="lava" method="_on_body_entered"]
 [connection signal="body_entered" from="goal" to="goal" method="_on_body_entered"]
