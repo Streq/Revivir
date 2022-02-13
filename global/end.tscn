@@ -15,6 +15,5 @@ animations = [ {
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "New Anim"
 playing = true
 centered = false

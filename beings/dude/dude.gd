@@ -31,7 +31,7 @@ onready var overlap_check_col_shape = $overlap_check/CollisionShape2D
 onready var death_animation := $death_animation
 
 var current_shape
-
+var can_revive := true
 
 onready var deaths := []
 
@@ -176,11 +176,14 @@ func has_death(val):
 	return deaths.find(val) != -1
 
 func revive():
-	velocity.y += -100
-	yield(get_tree().create_timer(0.2),"timeout")
-	set_alive(true)
-	particles_revive.emitting = true
-	emit_signal("revived")
+	if can_revive:
+		velocity.y += -100
+		can_revive = false
+		yield(get_tree().create_timer(0.2),"timeout")
+		can_revive = true
+		set_alive(true)
+		particles_revive.emitting = true
+		emit_signal("revived")
 	
 
 func set_alive(val):
