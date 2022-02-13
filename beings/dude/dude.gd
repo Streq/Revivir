@@ -128,6 +128,8 @@ func die(cause = null):
 				set_lava(true)
 			"vertical_squash":
 				set_vertical_squash(true)
+			"water":
+				set_lava(false)
 			
 		if alive:
 			emit_signal("dead")
@@ -142,9 +144,11 @@ func set_lava(val):
 			sprite.material = ShaderMaterial.new()
 			sprite.material.shader = preload("res://assets/shader/red_dither.gdshader")
 			deaths.append("lava")
+			$lava_sparks.emitting = true
 			velocity = Vector2(100.0 * -facing, -300.0)
 	else:
 		if i != NOT_FOUND:
+			$lava_sparks.emitting = false
 			sprite.material = null
 			deaths.remove(i)
 

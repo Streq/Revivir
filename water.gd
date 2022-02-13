@@ -10,5 +10,5 @@ func _physics_process(delta):
 		if !body.alive:
 			body.velocity = lerp (body.velocity, Vector2.ZERO, 10*delta)
 			body.velocity.y -= 500*delta
-		elif body.has_death("lava"):
-			body.die(null)
+		if body.has_death("lava"):
+			body.die("water")

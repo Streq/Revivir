@@ -313,10 +313,10 @@ script = ExtResource( 14 )
 
 [node name="right" type="Label" parent="aplastamiento_label"]
 visible = false
-margin_left = 248.0
-margin_top = -24.0
-margin_right = 395.0
-margin_bottom = 41.0
+margin_left = 242.0
+margin_top = -22.0
+margin_right = 389.0
+margin_bottom = 43.0
 grow_horizontal = 2
 grow_vertical = 2
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -329,10 +329,10 @@ __meta__ = {
 
 [node name="left" type="Label" parent="aplastamiento_label"]
 visible = false
-margin_left = -426.0
-margin_top = -30.0
-margin_right = -279.0
-margin_bottom = 35.0
+margin_left = -414.0
+margin_top = -20.0
+margin_right = -267.0
+margin_bottom = 45.0
 grow_horizontal = 2
 grow_vertical = 2
 custom_colors/font_color = Color( 0, 0, 0, 1 )

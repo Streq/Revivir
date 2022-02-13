@@ -13,4 +13,4 @@
 
 [node name="Level" type="Node"]
 script = ExtResource( 1 )
-levels = [ ExtResource( 9 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 10 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 4 ) ]
+levels = [ ExtResource( 9 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 10 ), ExtResource( 8 ), ExtResource( 4 ) ]
